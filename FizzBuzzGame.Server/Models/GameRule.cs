@@ -7,6 +7,7 @@ namespace FizzBuzzGame.Server.Models
     {
         [Key]
         public int Id { get; set; }
+        [Required]
         public int Divisor { get; set; }
         public string Description { get; set; }
 

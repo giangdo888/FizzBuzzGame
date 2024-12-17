@@ -14,9 +14,10 @@ namespace FizzBuzzGame.Server.Models
         public int MinRange { get; set; }
         [Required]
         public int MaxRange { get; set; }
+        [Required]
         public int CountDownTime { get; set; }
 
         //navigation properties
-        public ICollection<GameRule> Rules { get; set; }
+        public List<GameRule> Rules { get; set; }
     }
 }

@@ -7,12 +7,12 @@ namespace FizzBuzzGame.Server.Data
     {
         public FizzBuzzGameDbContext(DbContextOptions<FizzBuzzGameDbContext> options) : base(options) { }
 
-        DbSet<Game> Games { get; set; }
-        DbSet<GameRule> GameRules { get; set; }
-        DbSet<Attempt> Attempts { get; set; }
-        DbSet<User> Users { get; set; }
-        DbSet<OwnerShip> OwnerShips { get; set; }
-        DbSet<Role> Roles { get; set; }
+        public DbSet<Game> Games { get; set; }
+        public DbSet<GameRule> GameRules { get; set; }
+        public DbSet<Attempt> Attempts { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<OwnerShip> OwnerShips { get; set; }
+        public DbSet<Role> Roles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -35,12 +35,12 @@ namespace FizzBuzzGame.Server.Data
 
             // Seed data for GameRules (for each game)
             modelBuilder.Entity<GameRule>().HasData(
-                new GameRule { Id = 1, GameId = 1, Description = "Replace numbers divisible by 7 with 'Foo'" },
-                new GameRule { Id = 2, GameId = 1, Description = "Replace numbers divisible by 11 with 'Boo'" },
-                new GameRule { Id = 3, GameId = 1, Description = "Replace numbers divisible by 103 with 'Loo'" },
+                new GameRule { Id = 1, GameId = 1, Divisor = 7, Description = "Replace numbers divisible by 7 with 'Foo'" },
+                new GameRule { Id = 2, GameId = 1, Divisor = 11, Description = "Replace numbers divisible by 11 with 'Boo'" },
+                new GameRule { Id = 3, GameId = 1, Divisor = 103, Description = "Replace numbers divisible by 103 with 'Loo'" },
 
-                new GameRule { Id = 4, GameId = 2, Description = "Replace numbers divisible by 3 with 'Fizz'" },
-                new GameRule { Id = 5, GameId = 2, Description = "Replace numbers divisible by 5 with 'Buzz'" }
+                new GameRule { Id = 4, GameId = 2, Divisor = 3, Description = "Replace numbers divisible by 3 with 'Fizz'" },
+                new GameRule { Id = 5, GameId = 2, Divisor = 5, Description = "Replace numbers divisible by 5 with 'Buzz'" }
             );
 
             // Seed data for Users (make sure password is hashed, just example here)

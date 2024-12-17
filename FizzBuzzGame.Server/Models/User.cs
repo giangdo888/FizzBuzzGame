@@ -15,10 +15,11 @@ namespace FizzBuzzGame.Server.Models
         public string Password { get; set; }
 
         //foreign keys
+        [Required]
         public int RoleId { get; set; }
 
         //navigation properties
         public Role Role {  get; set; }
-        public ICollection<OwnerShip> OwnerShips { get; set; }
+        public List<OwnerShip> OwnerShips { get; set; }
     }
 }
