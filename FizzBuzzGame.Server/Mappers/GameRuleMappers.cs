@@ -10,6 +10,9 @@ namespace FizzBuzzGame.Server.Mappers
         {
             CreateMap<GameRuleDTO, GameRule>();
             CreateMap<GameRule, GameRuleDTO>();
+
+            CreateMap<StandAloneGameRuleDTO, GameRule>();
+            CreateMap<GameRule, StandAloneGameRuleDTO>();
         }
     }
 }

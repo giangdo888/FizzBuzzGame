@@ -56,7 +56,7 @@ namespace FizzBuzzGame.Server.Repositories
                     throw new ArgumentNullException(nameof(game), "Try to add new game from empty object");
                 }
 
-                await _context.AddAsync(game);
+                await _context.Games.AddAsync(game);
                 await _context.SaveChangesAsync();
 
                 return game;
@@ -91,10 +91,7 @@ namespace FizzBuzzGame.Server.Repositories
                 existingGame.CountDownTime = updatedGame.CountDownTime;
 
                 //remove all Rules that belong to this gameId
-                //var existingRules = existingGame.Rules.ToList();
-                //_context.GameRules.RemoveRange(existingRules
-                var existingRuleIds = existingGame.Rules.Select(r => r.Id).ToList();
-                existingGame.Rules.RemoveAll(r => existingRuleIds.Contains(r.Id));
+                existingGame.Rules.RemoveAll(r => r.GameId == existingGame.Id);
 
                 //add new Rules from updatedGame
                 foreach (var updatedRule in updatedGame.Rules)

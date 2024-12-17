@@ -48,15 +48,13 @@ namespace FizzBuzzGame.Server.Migrations
                 name: "GameRules",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Divisor = table.Column<int>(type: "integer", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: false),
-                    GameId = table.Column<int>(type: "integer", nullable: false)
+                    GameId = table.Column<int>(type: "integer", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GameRules", x => x.Id);
+                    table.PrimaryKey("PK_GameRules", x => new { x.Divisor, x.GameId });
                     table.ForeignKey(
                         name: "FK_GameRules_Games_GameId",
                         column: x => x.GameId,
@@ -155,14 +153,14 @@ namespace FizzBuzzGame.Server.Migrations
 
             migrationBuilder.InsertData(
                 table: "GameRules",
-                columns: new[] { "Id", "Description", "Divisor", "GameId" },
+                columns: new[] { "Divisor", "GameId", "Description" },
                 values: new object[,]
                 {
-                    { 1, "Replace numbers divisible by 7 with 'Foo'", 0, 1 },
-                    { 2, "Replace numbers divisible by 11 with 'Boo'", 0, 1 },
-                    { 3, "Replace numbers divisible by 103 with 'Loo'", 0, 1 },
-                    { 4, "Replace numbers divisible by 3 with 'Fizz'", 0, 2 },
-                    { 5, "Replace numbers divisible by 5 with 'Buzz'", 0, 2 }
+                    { 3, 2, "Replace numbers divisible by 3 with 'Fizz'" },
+                    { 5, 2, "Replace numbers divisible by 5 with 'Buzz'" },
+                    { 7, 1, "Replace numbers divisible by 7 with 'Foo'" },
+                    { 11, 1, "Replace numbers divisible by 11 with 'Boo'" },
+                    { 103, 1, "Replace numbers divisible by 103 with 'Loo'" }
                 });
 
             migrationBuilder.InsertData(
@@ -179,8 +177,8 @@ namespace FizzBuzzGame.Server.Migrations
                 columns: new[] { "Id", "CorrectNumber", "CreatedAt", "Duration", "GameId", "IncorrectNumber", "Score", "UserId" },
                 values: new object[,]
                 {
-                    { 1, 3, new DateTime(2024, 12, 16, 5, 59, 11, 401, DateTimeKind.Utc).AddTicks(5062), 60, 1, 1, 5, 1 },
-                    { 2, 2, new DateTime(2024, 12, 16, 5, 59, 11, 401, DateTimeKind.Utc).AddTicks(5068), 45, 2, 2, 4, 2 }
+                    { 1, 3, new DateTime(2024, 12, 17, 10, 5, 34, 710, DateTimeKind.Utc).AddTicks(6074), 60, 1, 1, 5, 1 },
+                    { 2, 2, new DateTime(2024, 12, 17, 10, 5, 34, 710, DateTimeKind.Utc).AddTicks(6081), 45, 2, 2, 4, 2 }
                 });
 
             migrationBuilder.InsertData(

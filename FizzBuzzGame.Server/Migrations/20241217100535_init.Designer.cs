@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FizzBuzzGame.Server.Migrations
 {
     [DbContext(typeof(FizzBuzzGameDbContext))]
-    [Migration("20241217080230_updateRequiredFields")]
-    partial class updateRequiredFields
+    [Migration("20241217100535_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -67,7 +67,7 @@ namespace FizzBuzzGame.Server.Migrations
                         {
                             Id = 1,
                             CorrectNumber = 3,
-                            CreatedAt = new DateTime(2024, 12, 17, 8, 2, 29, 974, DateTimeKind.Utc).AddTicks(7164),
+                            CreatedAt = new DateTime(2024, 12, 17, 10, 5, 34, 710, DateTimeKind.Utc).AddTicks(6074),
                             Duration = 60,
                             GameId = 1,
                             IncorrectNumber = 1,
@@ -78,7 +78,7 @@ namespace FizzBuzzGame.Server.Migrations
                         {
                             Id = 2,
                             CorrectNumber = 2,
-                            CreatedAt = new DateTime(2024, 12, 17, 8, 2, 29, 974, DateTimeKind.Utc).AddTicks(7172),
+                            CreatedAt = new DateTime(2024, 12, 17, 10, 5, 34, 710, DateTimeKind.Utc).AddTicks(6081),
                             Duration = 45,
                             GameId = 2,
                             IncorrectNumber = 2,
@@ -134,23 +134,17 @@ namespace FizzBuzzGame.Server.Migrations
 
             modelBuilder.Entity("FizzBuzzGame.Server.Models.GameRule", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<int>("Divisor")
                         .HasColumnType("integer");
 
                     b.Property<int>("GameId")
                         .HasColumnType("integer");
 
-                    b.HasKey("Id");
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Divisor", "GameId");
 
                     b.HasIndex("GameId");
 
@@ -159,38 +153,33 @@ namespace FizzBuzzGame.Server.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
-                            Description = "Replace numbers divisible by 7 with 'Foo'",
                             Divisor = 7,
-                            GameId = 1
+                            GameId = 1,
+                            Description = "Replace numbers divisible by 7 with 'Foo'"
                         },
                         new
                         {
-                            Id = 2,
-                            Description = "Replace numbers divisible by 11 with 'Boo'",
                             Divisor = 11,
-                            GameId = 1
+                            GameId = 1,
+                            Description = "Replace numbers divisible by 11 with 'Boo'"
                         },
                         new
                         {
-                            Id = 3,
-                            Description = "Replace numbers divisible by 103 with 'Loo'",
                             Divisor = 103,
-                            GameId = 1
+                            GameId = 1,
+                            Description = "Replace numbers divisible by 103 with 'Loo'"
                         },
                         new
                         {
-                            Id = 4,
-                            Description = "Replace numbers divisible by 3 with 'Fizz'",
                             Divisor = 3,
-                            GameId = 2
+                            GameId = 2,
+                            Description = "Replace numbers divisible by 3 with 'Fizz'"
                         },
                         new
                         {
-                            Id = 5,
-                            Description = "Replace numbers divisible by 5 with 'Buzz'",
                             Divisor = 5,
-                            GameId = 2
+                            GameId = 2,
+                            Description = "Replace numbers divisible by 5 with 'Buzz'"
                         });
                 });
 
@@ -319,11 +308,13 @@ namespace FizzBuzzGame.Server.Migrations
 
             modelBuilder.Entity("FizzBuzzGame.Server.Models.GameRule", b =>
                 {
-                    b.HasOne("FizzBuzzGame.Server.Models.Game", null)
+                    b.HasOne("FizzBuzzGame.Server.Models.Game", "Game")
                         .WithMany("Rules")
                         .HasForeignKey("GameId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Game");
                 });
 
             modelBuilder.Entity("FizzBuzzGame.Server.Models.OwnerShip", b =>

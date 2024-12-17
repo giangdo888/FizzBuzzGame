@@ -5,14 +5,17 @@ namespace FizzBuzzGame.Server.Models
 {
     public class GameRule
     {
-        [Key]
-        public int Id { get; set; }
         [Required]
         public int Divisor { get; set; }
+        [Required]
+        public string Word { get; set; }
         public string Description { get; set; }
 
         //foreign keys
         public int GameId { get; set; }
+
+        //navigation properties
+        public Game Game { get; set; }
 
     }
 }

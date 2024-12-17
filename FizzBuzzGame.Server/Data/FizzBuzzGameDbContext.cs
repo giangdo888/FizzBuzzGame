@@ -16,6 +16,10 @@ namespace FizzBuzzGame.Server.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<GameRule>().HasKey(
+                r => new { r.Divisor, r.GameId }
+            );
+
             // Define composite primary key for OwnerShips table
             modelBuilder.Entity<OwnerShip>().HasKey(
                 o => new { o.UserId, o.GameId }
@@ -35,12 +39,12 @@ namespace FizzBuzzGame.Server.Data
 
             // Seed data for GameRules (for each game)
             modelBuilder.Entity<GameRule>().HasData(
-                new GameRule { Id = 1, GameId = 1, Divisor = 7, Description = "Replace numbers divisible by 7 with 'Foo'" },
-                new GameRule { Id = 2, GameId = 1, Divisor = 11, Description = "Replace numbers divisible by 11 with 'Boo'" },
-                new GameRule { Id = 3, GameId = 1, Divisor = 103, Description = "Replace numbers divisible by 103 with 'Loo'" },
+                new GameRule {GameId = 1, Divisor = 7, Word = "Foo", Description = "Replace numbers divisible by 7 with 'Foo'" },
+                new GameRule {GameId = 1, Divisor = 11, Word = "Boo", Description = "Replace numbers divisible by 11 with 'Boo'" },
+                new GameRule {GameId = 1, Divisor = 103, Word = "Loo", Description = "Replace numbers divisible by 103 with 'Loo'" },
 
-                new GameRule { Id = 4, GameId = 2, Divisor = 3, Description = "Replace numbers divisible by 3 with 'Fizz'" },
-                new GameRule { Id = 5, GameId = 2, Divisor = 5, Description = "Replace numbers divisible by 5 with 'Buzz'" }
+                new GameRule {GameId = 2, Divisor = 3, Word = "Fizz", Description = "Replace numbers divisible by 3 with 'Fizz'" },
+                new GameRule {GameId = 2, Divisor = 5, Word = "Buzz", Description = "Replace numbers divisible by 5 with 'Buzz'" }
             );
 
             // Seed data for Users (make sure password is hashed, just example here)

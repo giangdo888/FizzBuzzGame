@@ -31,9 +31,11 @@ namespace FizzBuzzGame.Server
 
             //add repositories
             builder.Services.AddScoped<IGameRepository, GameRepository>();
+            builder.Services.AddScoped<IGameRuleRepository, GameRuleRepository>();
 
             //add services
             builder.Services.AddScoped<IGameService, GameService>();
+            builder.Services.AddScoped<IGameRuleService, GameRuleService>();
 
             var app = builder.Build();
 
