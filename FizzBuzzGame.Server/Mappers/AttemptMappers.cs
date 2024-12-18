@@ -8,11 +8,11 @@ namespace FizzBuzzGame.Server.Mappers
     {
         public AttemptMappers()
         {
-            CreateMap<AttemptDTO, Attempt>();
-            CreateMap<Attempt, AttemptDTO>();
+            CreateMap<InitialAttemptDTO, Attempt>();
+            CreateMap<Attempt, InitialAttemptDTO>();
 
-            CreateMap<ResultDTO, Attempt>();
-            CreateMap<Attempt, ResultDTO>();
+            CreateMap<AttemptResultDTO, Attempt>();
+            CreateMap<Attempt, AttemptResultDTO>();
         }
     }
 }

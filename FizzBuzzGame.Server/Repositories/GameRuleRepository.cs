@@ -32,7 +32,7 @@ namespace FizzBuzzGame.Server.Repositories
             }
             catch (DbUpdateException ex)
             {
-                _logger.LogWarning(ex, "Repository: Error in AddGameRuleAsync: {msg}", ex.Message);
+                _logger.LogError(ex, "Repository: Error in AddGameRuleAsync: {msg}", ex.Message);
                 throw;
             }
             catch (ArgumentNullException ex)

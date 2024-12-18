@@ -9,9 +9,10 @@ namespace FizzBuzzGame.Server.Models
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         [Required]
         public int Duration { get; set; }
-        public int CorrectNumber { get; set; }
-        public int IncorrectNumber { get; set; }
-        public int Score { get; set; }
+        public int CorrectNumber { get; set; } = 0;
+        public int IncorrectNumber { get; set; } = 0;
+        public int Score { get; set; } = 0;
+        public bool IsCompleted { get; set; } = false;
 
         //foreign keys
         [Required]

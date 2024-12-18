@@ -32,10 +32,16 @@ namespace FizzBuzzGame.Server
             //add repositories
             builder.Services.AddScoped<IGameRepository, GameRepository>();
             builder.Services.AddScoped<IGameRuleRepository, GameRuleRepository>();
+            builder.Services.AddScoped<IAttemptRepository, AttemptRepository>();
 
             //add services
             builder.Services.AddScoped<IGameService, GameService>();
             builder.Services.AddScoped<IGameRuleService, GameRuleService>();
+            builder.Services.AddScoped<IAttemptService, AttemptService>();
+
+            //inject Dictionary
+            builder.Services.AddSingleton<Dictionary<int, AttemptState>>();
+            builder.Services.AddSingleton<Dictionary<int, string>>();
 
             var app = builder.Build();
 

@@ -33,8 +33,8 @@ namespace FizzBuzzGame.Server.Data
 
             // Seed data for Games (Range start can be negative)
             modelBuilder.Entity<Game>().HasData(
-                new Game { Id = 1, Name = "FooBooLoo", MinRange = -50, MaxRange = 100, CountDownTime = 15 },
-                new Game { Id = 2, Name = "FizzBuzz", MinRange = -30, MaxRange = 50, CountDownTime = 10 }
+                new Game { Id = 1, Name = "FooBooLoo", MinRange = -50, MaxRange = 100 },
+                new Game { Id = 2, Name = "FizzBuzz", MinRange = -30, MaxRange = 50 }
             );
 
             // Seed data for GameRules (for each game)
@@ -62,8 +62,8 @@ namespace FizzBuzzGame.Server.Data
 
             // Seed data for Attempts (Example attempts for users)
             modelBuilder.Entity<Attempt>().HasData(
-                new Attempt { Id = 1, UserId = 1, GameId = 1, CorrectNumber = 3, IncorrectNumber = 1, Duration = 60, Score = 5 },
-                new Attempt { Id = 2, UserId = 2, GameId = 2, CorrectNumber = 2, IncorrectNumber = 2, Duration = 45, Score = 4 }
+                new Attempt { Id = 1, UserId = 1, GameId = 1, CorrectNumber = 3, IncorrectNumber = 1, Duration = 60, Score = 5, IsCompleted = true },
+                new Attempt { Id = 2, UserId = 2, GameId = 2, CorrectNumber = 2, IncorrectNumber = 2, Duration = 45, Score = 4, IsCompleted = true }
             );
         }
     }

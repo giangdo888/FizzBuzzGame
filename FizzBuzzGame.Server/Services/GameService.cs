@@ -87,11 +87,6 @@ namespace FizzBuzzGame.Server.Services
                 _logger.LogWarning("Service: Missing MaxRange when creating new game");
                 throw new ArgumentException("MaxRange is required");
             }
-            if (!gameDTO.CountDownTime.HasValue)
-            {
-                _logger.LogWarning("Service: Missing CountDownTime when creating new game");
-                throw new ArgumentException("CountDownTime is required");
-            }
             if(gameDTO.Rules == null || gameDTO.Rules.Count == 0)
             {
                 _logger.LogWarning("Service: Missing Rules when creating new game");
@@ -127,7 +122,7 @@ namespace FizzBuzzGame.Server.Services
                 _logger.LogWarning("Service: Missing Id when trying to update game");
                 throw new ArgumentException("Id is required");
             }
-            if (string.IsNullOrEmpty(gameDTO.Name) && !gameDTO.MinRange.HasValue && !gameDTO.MaxRange.HasValue && !gameDTO.CountDownTime.HasValue)
+            if (string.IsNullOrEmpty(gameDTO.Name) && !gameDTO.MinRange.HasValue && !gameDTO.MaxRange.HasValue)
             {
                 _logger.LogWarning("Service: Missing data when trying to update game with Id {id}", gameDTO.Id);
                 throw new ArgumentException("Nothing to update");

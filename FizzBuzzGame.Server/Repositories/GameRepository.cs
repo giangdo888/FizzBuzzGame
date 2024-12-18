@@ -63,7 +63,7 @@ namespace FizzBuzzGame.Server.Repositories
             }
             catch (DbUpdateException ex)
             {
-                _logger.LogWarning(ex,"Repository: Error in AddGameAsync: {msg}", ex.Message);
+                _logger.LogError(ex,"Repository: Error in AddGameAsync: {msg}", ex.Message);
                 throw;
             }
             catch (ArgumentNullException ex)
@@ -88,7 +88,6 @@ namespace FizzBuzzGame.Server.Repositories
                 existingGame.Name = updatedGame.Name;
                 existingGame.MinRange = updatedGame.MinRange;
                 existingGame.MaxRange = updatedGame.MaxRange;
-                existingGame.CountDownTime = updatedGame.CountDownTime;
 
                 //remove all Rules that belong to this gameId
                 existingGame.Rules.RemoveAll(r => r.GameId == existingGame.Id);

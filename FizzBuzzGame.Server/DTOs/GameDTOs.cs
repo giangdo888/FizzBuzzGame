@@ -9,7 +9,6 @@ namespace FizzBuzzGame.Server.DTOs
         public string Name { get; set; }
         public int? MinRange { get; set; }
         public int? MaxRange { get; set; }
-        public int? CountDownTime { get; set; }
         public ICollection<GameRuleDTO> Rules { get; set; }
     }
 
@@ -18,6 +17,5 @@ namespace FizzBuzzGame.Server.DTOs
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int CountDownTime { get; set; }
     }
 }
