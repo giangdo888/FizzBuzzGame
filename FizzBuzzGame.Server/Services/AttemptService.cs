@@ -128,13 +128,15 @@ namespace FizzBuzzGame.Server.Services
 
             var randomNumber = GenerateRandomNumber(currentAttemptState.MinRange, currentAttemptState.MaxRange, currentAttemptState.Questions)
                  ?? throw new InvalidOperationException("No valid numbers available to generate.");
-            var currentQuestion = currentAttemptState.Questions.Last();
-            currentAttemptState.Questions.Add(randomNumber);
-            currentAttemptState.LastQuestionTime = DateTime.UtcNow;
 
             //check if timeout for this answer
             if ((DateTime.UtcNow - currentAttemptState.LastQuestionTime).TotalMilliseconds > currentAttemptState.TimeLimitEachQuestion*1000)
             {
+                currentAttemptState.Questions.Add(randomNumber);
+                currentAttemptState.LastQuestionTime = DateTime.UtcNow;
+                currentAttemptState.IncorrectCount++;
+                _attemptState[attemptAnswerDTO.Id] = currentAttemptState;
+
                 return new KeyValuePair<bool, AttemptQuestionDTO>(false, new AttemptQuestionDTO
                 {
                     Id = attemptAnswerDTO.Id,
@@ -151,6 +153,7 @@ namespace FizzBuzzGame.Server.Services
 
             bool result;
             string answer = string.Empty;
+            var currentQuestion = currentAttemptState.Questions.Last();
             foreach (var rule in rules)
             {
                 if (currentQuestion % rule.Key == 0)
@@ -176,6 +179,8 @@ namespace FizzBuzzGame.Server.Services
                 currentAttemptState.IncorrectCount++;
             }
 
+            currentAttemptState.Questions.Add(randomNumber);
+            currentAttemptState.LastQuestionTime = DateTime.UtcNow;
             _attemptState[attemptAnswerDTO.Id] = currentAttemptState;
             return new KeyValuePair<bool, AttemptQuestionDTO>(result, new AttemptQuestionDTO
             {
