@@ -1,6 +1,7 @@
 ﻿using FizzBuzzGame.Server.DTOs;
 using FizzBuzzGame.Server.Interfaces.IServices;
 using FizzBuzzGame.Server.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,6 +20,7 @@ namespace FizzBuzzGame.Server.Controllers
             _logger = logger;
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateAndStartAttemptController(InitialAttemptDTO attemptDTO)
         {
@@ -49,6 +51,7 @@ namespace FizzBuzzGame.Server.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost("{id}/answer")]
         public IActionResult HandleAttemptAnswerController(int id, AttemptAnswerDTO attemptAnswerDTO)
         {
@@ -75,6 +78,7 @@ namespace FizzBuzzGame.Server.Controllers
             }
         }
 
+        [Authorize]
         [HttpPut("{id}/finalize")]
         public async Task<IActionResult> FinalizeAttemptController(int id)
         {

@@ -1,6 +1,7 @@
 ﻿using FizzBuzzGame.Server.DTOs;
 using FizzBuzzGame.Server.Interfaces.IServices;
 using FizzBuzzGame.Server.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,6 +20,7 @@ namespace FizzBuzzGame.Server.Controllers
             _logger = logger;
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateGameRuleController(StandAloneGameRuleDTO gameRuleDTO)
         {
@@ -44,6 +46,7 @@ namespace FizzBuzzGame.Server.Controllers
             }
         }
 
+        [Authorize]
         [HttpPut]
         public async Task<IActionResult> UpdateGameRuleController(StandAloneGameRuleDTO gameRuleDTO)
         {
@@ -69,6 +72,7 @@ namespace FizzBuzzGame.Server.Controllers
             }
         }
 
+        [Authorize]
         [HttpDelete]
         public async Task<IActionResult> DeleteGameRuleController(GameRuleIdentifierDTO gameRuleIdentifierDTO)
         {

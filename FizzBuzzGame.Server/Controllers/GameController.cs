@@ -1,5 +1,6 @@
 ﻿using FizzBuzzGame.Server.DTOs;
 using FizzBuzzGame.Server.Interfaces.IServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -57,6 +58,7 @@ namespace FizzBuzzGame.Server.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateGameController(GameDTO gameDTO)
         {
@@ -82,6 +84,7 @@ namespace FizzBuzzGame.Server.Controllers
             }
         }
 
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateGameController(int id, GameDTO gameDTO)
         {
@@ -108,6 +111,7 @@ namespace FizzBuzzGame.Server.Controllers
             }
         }
 
+        [Authorize]
         [HttpDelete]
         public async Task<IActionResult> DeleteGameController(int id)
         {
