@@ -58,7 +58,7 @@ namespace FizzBuzzGame.Server.Controllers
             }
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateGameController(GameDTO gameDTO)
         {
@@ -84,7 +84,7 @@ namespace FizzBuzzGame.Server.Controllers
             }
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateGameController(int id, GameDTO gameDTO)
         {
@@ -111,7 +111,7 @@ namespace FizzBuzzGame.Server.Controllers
             }
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpDelete]
         public async Task<IActionResult> DeleteGameController(int id)
         {

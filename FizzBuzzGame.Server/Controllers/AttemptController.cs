@@ -20,7 +20,7 @@ namespace FizzBuzzGame.Server.Controllers
             _logger = logger;
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateAndStartAttemptController(InitialAttemptDTO attemptDTO)
         {
@@ -51,7 +51,7 @@ namespace FizzBuzzGame.Server.Controllers
             }
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPost("{id}/answer")]
         public IActionResult HandleAttemptAnswerController(int id, AttemptAnswerDTO attemptAnswerDTO)
         {
@@ -78,7 +78,7 @@ namespace FizzBuzzGame.Server.Controllers
             }
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPut("{id}/finalize")]
         public async Task<IActionResult> FinalizeAttemptController(int id)
         {

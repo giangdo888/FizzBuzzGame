@@ -21,7 +21,7 @@ namespace FizzBuzzGame.Server
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen(opt =>
+            builder.Services.AddSwaggerGen(/*opt =>
             {
                 opt.SwaggerDoc("v1", new OpenApiInfo { Title = "MyAPI", Version = "v1" });
                 opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -48,7 +48,7 @@ namespace FizzBuzzGame.Server
                         new string[]{}
                     }
                 });
-            });
+            }*/);
 
             builder.Services.AddDbContext<FizzBuzzGameDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

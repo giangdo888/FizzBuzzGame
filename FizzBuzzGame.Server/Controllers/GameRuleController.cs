@@ -20,7 +20,7 @@ namespace FizzBuzzGame.Server.Controllers
             _logger = logger;
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateGameRuleController(StandAloneGameRuleDTO gameRuleDTO)
         {
@@ -46,7 +46,7 @@ namespace FizzBuzzGame.Server.Controllers
             }
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPut]
         public async Task<IActionResult> UpdateGameRuleController(StandAloneGameRuleDTO gameRuleDTO)
         {
@@ -72,7 +72,7 @@ namespace FizzBuzzGame.Server.Controllers
             }
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpDelete]
         public async Task<IActionResult> DeleteGameRuleController(GameRuleIdentifierDTO gameRuleIdentifierDTO)
         {
