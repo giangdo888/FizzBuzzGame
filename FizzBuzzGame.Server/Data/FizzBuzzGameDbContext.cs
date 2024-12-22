@@ -16,6 +16,10 @@ namespace FizzBuzzGame.Server.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Game>()
+                .HasIndex(g => g.Name)
+                .IsUnique();
+
             modelBuilder.Entity<GameRule>().HasKey(
                 r => new { r.Divisor, r.GameId }
             );
