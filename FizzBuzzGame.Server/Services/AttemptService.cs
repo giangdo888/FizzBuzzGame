@@ -2,6 +2,7 @@
 using FizzBuzzGame.Server.DTOs;
 using FizzBuzzGame.Server.Interfaces.IRepositories;
 using FizzBuzzGame.Server.Interfaces.IServices;
+using FizzBuzzGame.Server.Migrations;
 using FizzBuzzGame.Server.Models;
 using FizzBuzzGame.Server.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -110,7 +111,7 @@ namespace FizzBuzzGame.Server.Services
                 throw;
             }
         }
-        public KeyValuePair<bool, AttemptQuestionDTO> HandleAttemptAsnwer(AttemptAnswerDTO attemptAnswerDTO)
+        public AttemptResultAndNewQuestionDTO HandleAttemptAsnwer(AttemptAnswerDTO attemptAnswerDTO)
         {
             if (attemptAnswerDTO == null)
             {
@@ -123,7 +124,12 @@ namespace FizzBuzzGame.Server.Services
             //check if timeout for this game
             if ((DateTime.UtcNow - currentAttemptState.CreatedAt).TotalMilliseconds > currentAttemptState.Duration * 1000)
             {
-                return new KeyValuePair<bool, AttemptQuestionDTO>(false, new AttemptQuestionDTO());
+                return new AttemptResultAndNewQuestionDTO
+                {
+                    IsCorrect = false,
+                    IsTimeOut = true,
+                    Question = new AttemptQuestionDTO()
+                };
             }
 
             var randomNumber = GenerateRandomNumber(currentAttemptState.MinRange, currentAttemptState.MaxRange, currentAttemptState.Questions)
@@ -137,11 +143,16 @@ namespace FizzBuzzGame.Server.Services
                 currentAttemptState.IncorrectCount++;
                 _attemptState[attemptAnswerDTO.Id] = currentAttemptState;
 
-                return new KeyValuePair<bool, AttemptQuestionDTO>(false, new AttemptQuestionDTO
+                return new AttemptResultAndNewQuestionDTO
                 {
-                    Id = attemptAnswerDTO.Id,
-                    Question = randomNumber
-                });
+                    IsCorrect = false,
+                    IsTimeOut = true,
+                    Question = new AttemptQuestionDTO
+                    {
+                        Id = attemptAnswerDTO.Id,
+                        Question = randomNumber
+                    }
+                };
             }
 
             var rules = currentAttemptState.Rules;
@@ -151,23 +162,36 @@ namespace FizzBuzzGame.Server.Services
                 throw new Exception("Error: a game must have at least 1 rule");
             }
 
-            bool result;
-            string answer = string.Empty;
+            bool result = false;
+            List<string> answer = [];
             var currentQuestion = currentAttemptState.Questions.Last();
             foreach (var rule in rules)
             {
                 if (currentQuestion % rule.Key == 0)
                 {
-                    answer += rule.Value;
+                    answer.Add(rule.Value);
                 }
             }
-            if (answer == "")
+            if (answer.Count == 0)
             {
                 result = currentQuestion.ToString().Equals(attemptAnswerDTO.Answer);
             }
             else
             {
-                result = answer.Equals(attemptAnswerDTO.Answer);
+                //remove word by word from player's answer, return correct if the string is empty (all correct) after the loop
+                var playerAnswer = attemptAnswerDTO.Answer;
+                foreach (var word in answer)
+                {
+                    if (playerAnswer.Contains(word))
+                    {
+                        playerAnswer = playerAnswer.Replace(word, "");
+                    }
+                }
+                
+                if (string.IsNullOrEmpty(playerAnswer))
+                {
+                    result = true;
+                }
             }
 
             if (result)
@@ -182,11 +206,17 @@ namespace FizzBuzzGame.Server.Services
             currentAttemptState.Questions.Add(randomNumber);
             currentAttemptState.LastQuestionTime = DateTime.UtcNow;
             _attemptState[attemptAnswerDTO.Id] = currentAttemptState;
-            return new KeyValuePair<bool, AttemptQuestionDTO>(result, new AttemptQuestionDTO
+
+            return new AttemptResultAndNewQuestionDTO
             {
-                Id = attemptAnswerDTO.Id,
-                Question = randomNumber
-            });
+                IsCorrect = result,
+                IsTimeOut = false,
+                Question = new AttemptQuestionDTO
+                {
+                    Id = attemptAnswerDTO.Id,
+                    Question = randomNumber
+                }
+            };
         }
         public async Task<AttemptResultDTO> FinalizeAttemptAsync(int attemptId)
         {

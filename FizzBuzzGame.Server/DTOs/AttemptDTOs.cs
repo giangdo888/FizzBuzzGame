@@ -25,6 +25,13 @@
         public int Question { get; set; }
     }
 
+    public class AttemptResultAndNewQuestionDTO
+    {
+        public bool IsCorrect { get; set; }
+        public bool IsTimeOut { get; set; }
+        public AttemptQuestionDTO Question { get; set; }
+    }
+
     public class AttemptAnswerDTO
     {
         public int Id { get; set; }
