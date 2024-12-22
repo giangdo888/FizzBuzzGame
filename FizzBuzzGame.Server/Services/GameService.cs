@@ -92,6 +92,23 @@ namespace FizzBuzzGame.Server.Services
                 _logger.LogWarning("Service: Missing Rules when creating new game");
                 throw new ArgumentException("The game must have at least 1 rule");
             }
+            else
+            {
+                //Rule must the in the MinRange and MaxRange
+                foreach (var rule in gameDTO.Rules)
+                {
+                    if (!rule.Divisor.HasValue || string.IsNullOrEmpty(rule.Word))
+                    {
+                        _logger.LogWarning("Service: Missing Divisor or Word from Rules");
+                        throw new ArgumentException("Missing Divisor or Word from Rules");
+                    }
+                    if (rule.Divisor < gameDTO.MinRange || rule.Divisor > gameDTO.MaxRange)
+                    {
+                        _logger.LogWarning("Service: One or more Divisors are outside the range of MinRange - MaxRange");
+                        throw new ArgumentException("Invalid Divisors");
+                    }
+                }
+            }
 
             try
             {

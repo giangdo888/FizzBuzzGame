@@ -3,7 +3,7 @@
     //use when bind with GameDTO
     public class GameRuleDTO
     {
-        public int Divisor { get; set; }
+        public int? Divisor { get; set; }
         public string Word { get; set; }
         public string Description { get; set; }
     }

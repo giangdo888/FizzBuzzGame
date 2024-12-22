@@ -75,12 +75,12 @@ namespace FizzBuzzGame.Server.Controllers
             catch (ArgumentNullException ex)
             {
                 _logger.LogError("Controller: Invalid input");
-                return BadRequest("Invalid input " + ex.Message);
+                return BadRequest("Invalid input: " + ex.Message);
             }
             catch (ArgumentException ex)
             {
                 _logger.LogError("Controller: Invalid input");
-                return BadRequest("Invalid input " + ex.Message);
+                return BadRequest("Invalid input: " + ex.Message);
             }
         }
 
@@ -102,12 +102,12 @@ namespace FizzBuzzGame.Server.Controllers
             catch (ArgumentNullException ex)
             {
                 _logger.LogError("Controller: Invalid input");
-                return BadRequest("Invalid input " + ex.Message);
+                return BadRequest("Invalid input: " + ex.Message);
             }
             catch (ArgumentException ex)
             {
                 _logger.LogError("Controller: Invalid input");
-                return BadRequest("Invalid input " + ex.Message);
+                return BadRequest("Invalid input: " + ex.Message);
             }
         }
 

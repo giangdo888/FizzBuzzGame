@@ -49,10 +49,10 @@ namespace FizzBuzzGame.Server.Services
                 _logger.LogWarning("Service: Missing input when creating new attempt");
                 throw new ArgumentNullException(nameof(initialAttemptDTO));
             }
-            if (!initialAttemptDTO.Duration.HasValue)
+            if (!initialAttemptDTO.Duration.HasValue || initialAttemptDTO.Duration.Value < 60)
             {
-                _logger.LogWarning("Service: Missing Duration when creating new attempt");
-                throw new ArgumentException("Duration is required");
+                _logger.LogWarning("Service: Missing Duration or Duration < 60 seconds when creating new attempt");
+                throw new ArgumentException("A Duration > 60 is required");
             }
             if (!initialAttemptDTO.GameId.HasValue)
             {

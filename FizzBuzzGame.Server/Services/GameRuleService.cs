@@ -5,18 +5,21 @@ using FizzBuzzGame.Server.Interfaces.IServices;
 using FizzBuzzGame.Server.Models;
 using FizzBuzzGame.Server.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace FizzBuzzGame.Server.Services
 {
     public class GameRuleService : IGameRuleService
     {
         private readonly IGameRuleRepository _gameRuleRepository;
+        private readonly IGameRepository _gameRepository;
         private readonly IMapper _mapper;
         private readonly ILogger<GameRuleService> _logger;
 
-        public GameRuleService(IGameRuleRepository gameRuleRepository, IMapper mapper, ILogger<GameRuleService> logger)
+        public GameRuleService(IGameRuleRepository gameRuleRepository, IGameRepository gameRepository, IMapper mapper, ILogger<GameRuleService> logger)
         {
             _gameRuleRepository = gameRuleRepository;
+            _gameRepository = gameRepository;
             _mapper = mapper;
             _logger = logger;
         }
@@ -43,6 +46,14 @@ namespace FizzBuzzGame.Server.Services
             {
                 _logger.LogWarning("Service: Missing Word when creating new rule");
                 throw new ArgumentException("Word is required");
+            }
+
+            //check the divisor range
+            var game = await _gameRepository.GetGameByIdAsync(standAloneGameRuleDTO.GameId.Value);
+            if (standAloneGameRuleDTO.Divisor < game.MinRange || standAloneGameRuleDTO.Divisor > game.MaxRange)
+            {
+                _logger.LogWarning("Service: Divisors is outside the range of MinRange - MaxRange");
+                throw new ArgumentException("Invalid Divisor");
             }
 
             try
