@@ -18,6 +18,12 @@
         public int IncorrectNumber { get; set; }
         public int Score { get; set; }
     }
+    public class InittialAttemptQuestionDTO
+    {
+        public int Id { get; set; }
+        public int Question { get; set; }
+        public int TimeLimitEachQuestion { get; set; }
+    }
 
     public class AttemptQuestionDTO
     {

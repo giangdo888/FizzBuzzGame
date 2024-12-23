@@ -4,7 +4,7 @@ namespace FizzBuzzGame.Server.Interfaces.IServices
 {
     public interface IAttemptService
     {
-        public Task<AttemptQuestionDTO> CreateAndStartAttemptAsync(InitialAttemptDTO initialAttemptDTO);
+        public Task<InittialAttemptQuestionDTO> CreateAndStartAttemptAsync(InitialAttemptDTO initialAttemptDTO);
         public AttemptResultAndNewQuestionDTO HandleAttemptAsnwer(AttemptAnswerDTO attemptAnswerDTO);
         public Task<AttemptResultDTO> FinalizeAttemptAsync(int attemptId);
         public Task<AttemptResultDTO> GetAttemptResultAsync(int attemptId);

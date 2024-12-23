@@ -42,7 +42,7 @@ namespace FizzBuzzGame.Server.Services
             _attemptState = attemptState;
         }
 
-        public async Task<AttemptQuestionDTO> CreateAndStartAttemptAsync(InitialAttemptDTO initialAttemptDTO)
+        public async Task<InittialAttemptQuestionDTO> CreateAndStartAttemptAsync(InitialAttemptDTO initialAttemptDTO)
         {
             //validate input first
             if (initialAttemptDTO == null)
@@ -79,6 +79,7 @@ namespace FizzBuzzGame.Server.Services
 
                 var randomNumber = GenerateRandomNumber(game.MinRange, game.MaxRange, []) ?? throw new InvalidOperationException("No valid numbers available to generate.");
                 List<int> questions = [randomNumber];
+                var timeLimit = CalculateLimitTime(rules.Count);
 
                 var attemptState = new AttemptState
                 {
@@ -86,7 +87,7 @@ namespace FizzBuzzGame.Server.Services
                     Duration = result.Duration,
                     Questions = questions,
                     LastQuestionTime = DateTime.UtcNow,
-                    TimeLimitEachQuestion = CalculateLimitTime(rules.Count),
+                    TimeLimitEachQuestion = timeLimit,
                     MinRange = game.MinRange,
                     MaxRange = game.MaxRange,
                     Rules = rules
@@ -94,10 +95,11 @@ namespace FizzBuzzGame.Server.Services
 
                 _attemptState[result.Id] = attemptState;
 
-                return new AttemptQuestionDTO
+                return new InittialAttemptQuestionDTO
                 {
                     Id = result.Id,
-                    Question = randomNumber
+                    Question = randomNumber,
+                    TimeLimitEachQuestion = timeLimit
                 };
             }
             catch (DbUpdateException ex)
