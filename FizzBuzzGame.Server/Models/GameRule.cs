@@ -9,7 +9,6 @@ namespace FizzBuzzGame.Server.Models
         public int Divisor { get; set; }
         [Required]
         public string Word { get; set; }
-        public string Description { get; set; }
 
         //foreign keys
         public int GameId { get; set; }

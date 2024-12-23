@@ -55,7 +55,6 @@ namespace FizzBuzzGame.Server.Repositories
 
                 existingGameRule.Divisor = updatedGameRule.Divisor;
                 existingGameRule.Word = updatedGameRule.Word;
-                existingGameRule.Description = updatedGameRule.Description;
 
                 await _context.SaveChangesAsync();
                 return existingGameRule;

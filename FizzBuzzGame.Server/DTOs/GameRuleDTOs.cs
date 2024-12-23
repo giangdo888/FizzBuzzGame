@@ -5,7 +5,6 @@
     {
         public int? Divisor { get; set; }
         public string Word { get; set; }
-        public string Description { get; set; }
     }
 
     //use when stand alone
@@ -14,7 +13,6 @@
         public int? GameId { get; set; }
         public int? Divisor { get; set; }
         public string Word { get; set; }
-        public string Description { get; set; }
     }
 
     //use for identify rule

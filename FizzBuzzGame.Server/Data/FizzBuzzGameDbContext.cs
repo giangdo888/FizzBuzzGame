@@ -43,12 +43,12 @@ namespace FizzBuzzGame.Server.Data
 
             // Seed data for GameRules (for each game)
             modelBuilder.Entity<GameRule>().HasData(
-                new GameRule {GameId = 1, Divisor = 7, Word = "Foo", Description = "Replace numbers divisible by 7 with 'Foo'" },
-                new GameRule {GameId = 1, Divisor = 11, Word = "Boo", Description = "Replace numbers divisible by 11 with 'Boo'" },
-                new GameRule {GameId = 1, Divisor = 103, Word = "Loo", Description = "Replace numbers divisible by 103 with 'Loo'" },
+                new GameRule {GameId = 1, Divisor = 7, Word = "Foo" },
+                new GameRule {GameId = 1, Divisor = 11, Word = "Boo" },
+                new GameRule {GameId = 1, Divisor = 103, Word = "Loo" },
 
-                new GameRule {GameId = 2, Divisor = 3, Word = "Fizz", Description = "Replace numbers divisible by 3 with 'Fizz'" },
-                new GameRule {GameId = 2, Divisor = 5, Word = "Buzz", Description = "Replace numbers divisible by 5 with 'Buzz'" }
+                new GameRule {GameId = 2, Divisor = 3, Word = "Fizz" },
+                new GameRule {GameId = 2, Divisor = 5, Word = "Buzz" }
             );
 
             // Seed data for Users (make sure password is hashed, just example here)
