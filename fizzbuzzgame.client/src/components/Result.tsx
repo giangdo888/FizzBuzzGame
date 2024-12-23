@@ -32,9 +32,9 @@ export default function Result({ id }: ResultProps) {
     }, []);
 
     return (
-        <div>
-            <span>Correct answer: {result?.correctNumber}</span>
-            <span>Incorrect answer: {result?.incorrectNumber}</span>
+        <div className="results">
+            <span className="correct-result">Correct answer: {result?.correctNumber}</span>
+            <span className="incorrect-result">Incorrect answer: {result?.incorrectNumber}</span>
         </div>
     )
 }

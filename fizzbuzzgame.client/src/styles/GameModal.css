@@ -1,0 +1,105 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Dimmed background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    overflow: auto;
+}
+
+.modal-content {
+    background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+    color: #2d3748;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    width: 30%;
+    max-width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    text-align: center;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+    .modal-content h3 {
+        font-size: 1.5em;
+        color: #fff;
+        margin-bottom: 20px;
+        text-shadow: 1px 1px #ff6b6b;
+    }
+
+    .modal-content label {
+        display: block;
+        color: #fff;
+        margin-bottom: 5px;
+        font-size: 1em;
+    }
+
+    .modal-content input[type="text"],
+    .modal-content input[type="number"] {
+        padding: 10px;
+        border-radius: 8px;
+        border: none;
+        width: calc(100% - 22px);
+        margin-bottom: 15px;
+        font-size: 1em;
+        outline: none;
+    }
+
+    .modal-content button {
+        background: linear-gradient(45deg, #6b6bff, #6b95f0);
+        color: #ffffff;
+        border: none;
+        border-radius: 50px;
+        padding: 10px 20px;
+        font-size: 1.2em;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        outline: none;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        margin-top: 10px;
+    }
+
+    .modal-content button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .modal-content .rule {
+        display: flex; /* Make the parent container a flex container */
+        flex-wrap: nowrap; /* Prevent wrapping of child elements */
+        justify-content: space-between; /* Ensure space between inputs */
+        margin-bottom: 15px;
+    }
+
+        .modal-content .rule input[type="number"],
+        .modal-content .rule input[type="text"] {
+            flex: 0 1 45%; /* Allow inputs to take 45% of available space each */
+            padding: 8px; /* Smaller padding for smaller inputs */
+            border-radius: 8px;
+            border: none;
+            font-size: 0.9em; /* Slightly smaller font size */
+            outline: none;
+            margin-right: 10px; /* Space between the two inputs */
+            box-sizing: border-box; /* Include padding in the input width calculation */
+        }
+
+            .modal-content .rule input[type="number"]:last-child,
+            .modal-content .rule input[type="text"]:last-child {
+                margin-right: 0; /* Remove margin on the last input */
+            }
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

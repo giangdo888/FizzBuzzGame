@@ -12,7 +12,4 @@
     <None Remove="NewFolder1\**" />
     <TypeScriptConfiguration Remove="NewFolder1\**" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="src\styles\" />
-  </ItemGroup>
 </Project>

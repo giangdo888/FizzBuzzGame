@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { fetchData } from '../services/api.ts'
-import { useNavigate } from 'react-router-dom'
+import '../styles/PlayField.css'
 
 type PlayFieldProps = {
     id: number,
@@ -29,7 +29,7 @@ export default function PlayField({ id, question, timeLimit }: PlayFieldProps) {
             setTimer((prevTime) => {
                 if (prevTime < 1) {
                     clearInterval(countdownInterval);
-                    SumbitAndFetchNextQuestion();
+                    sumbitAndFetchNextQuestion();
                     return 0;
                 }
                 return prevTime - 1;
@@ -45,7 +45,7 @@ export default function PlayField({ id, question, timeLimit }: PlayFieldProps) {
         setInputValue(e.target.value);
     }
 
-    const SumbitAndFetchNextQuestion = async (e?: React.FormEvent) => {
+    const sumbitAndFetchNextQuestion = async (e?: React.FormEvent) => {
         e?.preventDefault();
         setInputValue("");
 
@@ -67,22 +67,15 @@ export default function PlayField({ id, question, timeLimit }: PlayFieldProps) {
                 setCurrentQuestion(data.question.question);
                 setTimer(timeLimit);
             }
-            //else if (data.question.id == 0) {
-            //    //id == 0 means the game ended
-            //    //const navigate = useNavigate();
-            //    //navigate(`/play/${id}/result`, {
-            //    //    state: { name, correctCount, incorrectCount }
-            //    //});
-            //}
         }
     };
 
     return (
         <div>
             <strong>{currentQuestion}</strong>
-            <span>This question time left: {timer}</span>
-            <form onSubmit={ SumbitAndFetchNextQuestion }>
-                <input
+            <span className="individual-time-left">This question time left: {timer}</span>
+            <form className="answer-form" onSubmit={sumbitAndFetchNextQuestion}>
+                <input className="input-answer"
                     type="text"
                     placeholder="Enter your answer here"
                     value={inputValue}
@@ -90,8 +83,8 @@ export default function PlayField({ id, question, timeLimit }: PlayFieldProps) {
                 />
                 <button type="submit">Submit</button>
             </form>
-            <span>Correct answer: {correctCount}</span>
-            <span>Incorrect answer: {incorrectCount}</span>
+            <span className="correct-answer">Correct answer: {correctCount}</span>
+            <span className="incorrect-answer">Incorrect answer: {incorrectCount}</span>
         </div>
     )
 }

@@ -4,6 +4,8 @@ import GameHeader from '../components/GameHeader.tsx'
 import PlayField from '../components/PlayField.tsx';
 import Result from '../components/Result.tsx'
 import { fetchData } from '../services/api.ts'
+import { useNavigate } from 'react-router-dom'
+import '../styles/PlayGame.css'
 
 type Question = {
     id: number,
@@ -15,6 +17,7 @@ export default function PlayGame() {
     const { id } = useParams();
     const location = useLocation();
     const { durationInput, name } = location.state || {};
+    const navigate = useNavigate();
 
     const [question, setQuestion] = useState<Question | null>(null);
     const [instruction, setInstruction] = useState<string>("");
@@ -78,6 +81,10 @@ export default function PlayGame() {
         return () => clearTimeout(timeout);
     };
 
+    const navigateBackHome = () => {
+        navigate("/");
+    }
+
     return (
         <div>
             <GameHeader
@@ -85,7 +92,7 @@ export default function PlayGame() {
                 instruction={instruction}
             />
             {isShowPlayField && (
-                <h4>Total time left: {timer}s</h4>
+                <h4 className="total-time-left">Total time left: {timer}s</h4>
             )}
             {isShowPlayField && (
                 < PlayField
@@ -96,11 +103,16 @@ export default function PlayGame() {
             )}
             {isShowTimesUp && (
                 <div>
-                    <span>Time's up!</span>
+                    <span className="times-up">Time's up!</span>
                 </div>
             )}
             {isShowResult && (
-                <Result id={question?.id ?? 0} />
+                <div>
+                    <Result id={question?.id ?? 0} />
+                    <button onClick={navigateBackHome}>
+                        Return to Home page
+                    </button>
+                </div>
             )}
         </div>
     )

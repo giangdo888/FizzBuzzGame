@@ -5,7 +5,7 @@ type GameCardProps = {
 
 export default function GameHeader({ mainHeader, instruction }: GameCardProps) {
 	return (
-		<header>
+		<header className="main-header">
 			<h1>{mainHeader}</h1>
 			<h3>{instruction}</h3>
 		</header>
