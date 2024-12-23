@@ -115,13 +115,34 @@ namespace FizzBuzzGame.Server.Services
         }
         public AttemptResultAndNewQuestionDTO HandleAttemptAsnwer(AttemptAnswerDTO attemptAnswerDTO)
         {
+            var currentAttemptState = _attemptState[attemptAnswerDTO.Id];
+            var randomNumber = GenerateRandomNumber(currentAttemptState.MinRange, currentAttemptState.MaxRange, currentAttemptState.Questions)
+                 ?? throw new InvalidOperationException("No valid numbers available to generate.");
+
             if (attemptAnswerDTO == null)
             {
                 _logger.LogWarning("Service: Missing input when answering");
                 throw new ArgumentNullException(nameof(attemptAnswerDTO));
             }
+            if (string.IsNullOrEmpty(attemptAnswerDTO.Answer))
+            {
+                currentAttemptState.Questions.Add(randomNumber);
+                currentAttemptState.LastQuestionTime = DateTime.UtcNow;
+                currentAttemptState.IncorrectCount++;
+                _attemptState[attemptAnswerDTO.Id] = currentAttemptState;
 
-            var currentAttemptState = _attemptState[attemptAnswerDTO.Id];
+                return new AttemptResultAndNewQuestionDTO
+                {
+                    IsCorrect = false,
+                    IsTimeOut = false,
+                    Question = new AttemptQuestionDTO
+                    {
+                        Id = attemptAnswerDTO.Id,
+                        Question = randomNumber
+                    }
+                };
+            }
+
 
             //check if timeout for this game
             if ((DateTime.UtcNow - currentAttemptState.CreatedAt).TotalMilliseconds > currentAttemptState.Duration * 1000)
@@ -133,9 +154,6 @@ namespace FizzBuzzGame.Server.Services
                     Question = new AttemptQuestionDTO()
                 };
             }
-
-            var randomNumber = GenerateRandomNumber(currentAttemptState.MinRange, currentAttemptState.MaxRange, currentAttemptState.Questions)
-                 ?? throw new InvalidOperationException("No valid numbers available to generate.");
 
             //check if timeout for this answer
             if ((DateTime.UtcNow - currentAttemptState.LastQuestionTime).TotalMilliseconds > currentAttemptState.TimeLimitEachQuestion*1000)
