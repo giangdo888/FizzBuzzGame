@@ -1,0 +1,6 @@
+services:
+  fizzbuzzgame.server:
+    image: ${DOCKER_REGISTRY-}fizzbuzzgameserver
+    build:
+      context: .
+      dockerfile: FizzBuzzGame.Server/Dockerfile

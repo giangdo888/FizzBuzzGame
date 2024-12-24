@@ -8,10 +8,13 @@ import path from 'path';
 import child_process from 'child_process';
 import { env } from 'process';
 
+
 const baseFolder =
     env.APPDATA !== undefined && env.APPDATA !== ''
         ? `${env.APPDATA}/ASP.NET/https`
         : `${env.HOME}/.aspnet/https`;
+console.log('APPDATA:', env.APPDATA);
+console.log('HOME:', env.HOME);
 
 const certificateName = "fizzbuzzgame.client";
 const certFilePath = path.join(baseFolder, `${certificateName}.pem`);
@@ -59,5 +62,6 @@ export default defineConfig({
         globals: true,
         environment: 'jsdom',
         setupFiles: './src/components/__tests__/setup.ts',
+        port: 5000,
     },
 })

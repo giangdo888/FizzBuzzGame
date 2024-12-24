@@ -94,6 +94,15 @@ namespace FizzBuzzGame.Server
                           .AllowAnyMethod();
                 });
             });
+            builder.Services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(policy =>
+                {
+                    policy.WithOrigins("https://localhost:3001")
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                });
+            });
 
             var app = builder.Build();
 
@@ -105,6 +114,10 @@ namespace FizzBuzzGame.Server
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+
+                using var serviceScope = app.Services.CreateScope();
+                using  var dbContext = serviceScope.ServiceProvider.GetService<DbContext>();
+                dbContext?.Database.Migrate();
             }
 
             app.UseHttpsRedirection();
