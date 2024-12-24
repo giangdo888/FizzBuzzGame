@@ -17,12 +17,16 @@ FizzBuzz is a full-stack application that allows players to join a FizzBuzz game
 - **TypeScript**
 - **React**
 - **CSS**
+- **Unit test with Vitest**
 
 ### Backend
 - **ASP.NET Core**
+- **Unit test with Xunit**
 
 ### Database
 - **PostgreSQL**
+
+### The whole project was containerize with Docker
 
 ---
 
