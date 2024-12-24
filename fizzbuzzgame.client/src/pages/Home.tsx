@@ -76,8 +76,13 @@ export default function Home() {
                     </div>
                 ))}
                 <div className="create-game">
-                    <span>Or</span><br />
-                    <button className="create-game-button" onClick={openGameModal}>Create game</button>
+                    <label htmlFor="create-game-button">Or</label><br />
+                    <button className="create-game-button"
+                        id="create-game-button"
+                        onClick={openGameModal}
+                    >
+                        Create game
+                    </button>
                 </div>
                 {isOpenGameModal && (
                     <GameModal closeModal={closeGameModal} onGameAdded={getCardData} />

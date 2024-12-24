@@ -12,24 +12,37 @@ type ResultProps = {
 
 export default function Result({ id }: ResultProps) {
     const [result, setResult] = useState<ResultScore>();
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchResult = async () => {
-            const options = {
-                method: "PUT",
-                body: {}
-            };
-            const data = await fetchData(`attempts/${id}/finalize`, options);
-            if (data) {
-                setResult({
-                    correctNumber: data.correctNumber,
-                    incorrectNumber: data.incorrectNumber
-                });
+            try {
+                const options = {
+                    method: "PUT",
+                    body: {}
+                };
+                const data = await fetchData(`attempts/${id}/finalize`, options);
+                if (data) {
+                    setResult({
+                        correctNumber: data.correctNumber,
+                        incorrectNumber: data.incorrectNumber
+                    });
+                }
+            } catch (err) {
+                setError('Failed to fetch result.');
             }
         };
 
         fetchResult();
     }, []);
+
+    if(error) {
+        return <div>{error}</div>;
+    }
+
+    if (!result) {
+        return null;
+    }
 
     return (
         <div className="results">

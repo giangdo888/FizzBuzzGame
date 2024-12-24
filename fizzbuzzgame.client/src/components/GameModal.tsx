@@ -84,8 +84,9 @@ export default function GameModal({ closeModal, onGameAdded }: GameModalProps) {
             <div className="modal-content">
                 <form onSubmit={createNewGame}>
                     <div>
-                        <label>Name:</label>
+                        <label htmlFor="name">Name:</label>
                         <input
+                            id="name"
                             type="text"
                             name="name"
                             value={formData.name}
@@ -93,8 +94,9 @@ export default function GameModal({ closeModal, onGameAdded }: GameModalProps) {
                             />
                     </div>
                     <div>
-                        <label>Min range:</label>
+                        <label htmlFor="minRange">Min range:</label>
                         <input
+                            id="minRange"
                             type="number"
                             name="minRange"
                             value={formData.minRange}
@@ -102,8 +104,9 @@ export default function GameModal({ closeModal, onGameAdded }: GameModalProps) {
                         />
                     </div>
                     <div>
-                        <label>Max range:</label>
+                        <label htmlFor="maxRange">Max range:</label>
                         <input
+                            id="maxRange"
                             type="number"
                             name="maxRange"
                             value={formData.maxRange}
@@ -115,15 +118,17 @@ export default function GameModal({ closeModal, onGameAdded }: GameModalProps) {
                         <div className="rules">
                         {formData.rules.map((rule : Rule, index: number) => (
                             <div key={index} className="rule">
-                                <label>Divisor: </label>
+                                <label htmlFor={`divisor-${index}`}>Divisor: </label>
                                 <input
+                                    id={`divisor-${index}`}
                                     type="number"
                                     name="divisor"
                                     value={rule.divisor}
                                     onChange={(e) => handleChange(e, index)}
                                 />
-                                <label>Word: </label>
+                                <label htmlFor={`word-${index}`}>Word: </label>
                                 <input
+                                    id={`word-${index}`}
                                     type="text"
                                     name="word"
                                     value={rule.word}
