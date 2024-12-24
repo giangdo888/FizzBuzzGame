@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35303.130
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FizzBuzzGame.Server", "FizzBuzzGame.Server\FizzBuzzGame.Server.csproj", "{641EAFB9-A5CF-4DF3-A1E5-964E4722CD5A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FizzBuzzGame.Server", "FizzBuzzGame.Server\FizzBuzzGame.Server.csproj", "{641EAFB9-A5CF-4DF3-A1E5-964E4722CD5A}"
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "fizzbuzzgame.client", "fizzbuzzgame.client\fizzbuzzgame.client.esproj", "{EDEBAACB-AFB5-4F98-AD98-128F181D488E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FizzBuzzGame.Server.Tests", "FizzBuzzGame.Server.Tests\FizzBuzzGame.Server.Tests.csproj", "{94CF9DC2-FE90-475E-BD74-EEC59A3731D7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +25,10 @@ Global
 		{EDEBAACB-AFB5-4F98-AD98-128F181D488E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EDEBAACB-AFB5-4F98-AD98-128F181D488E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EDEBAACB-AFB5-4F98-AD98-128F181D488E}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{94CF9DC2-FE90-475E-BD74-EEC59A3731D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94CF9DC2-FE90-475E-BD74-EEC59A3731D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94CF9DC2-FE90-475E-BD74-EEC59A3731D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94CF9DC2-FE90-475E-BD74-EEC59A3731D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
