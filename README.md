@@ -1,4 +1,4 @@
-# QuizApp 🎯
+# FizzBuzzGame 🎯
 
 FizzBuzz is a full-stack application that allows players to join a FizzBuzz game (a game with count down timer and players have to answer the correct answer corresponding with the given numbers)
 
