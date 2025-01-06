@@ -87,21 +87,13 @@ namespace FizzBuzzGame.Server
             //allow Cross-Origin Resource Sharing (CROS)
             builder.Services.AddCors(options =>
             {
-                options.AddDefaultPolicy(policy =>
-                {
-                    policy.WithOrigins("https://localhost:5173")
-                          .AllowAnyHeader()
-                          .AllowAnyMethod();
-                });
-            });
-            builder.Services.AddCors(options =>
-            {
-                options.AddDefaultPolicy(policy =>
-                {
-                    policy.WithOrigins("https://localhost:3001")
-                          .AllowAnyHeader()
-                          .AllowAnyMethod();
-                });
+                options.AddPolicy("AllowSpecificOrigins",
+                    policy =>
+                    {
+                        policy.WithOrigins("https://localhost:5173")
+                              .AllowAnyHeader()
+                              .AllowAnyMethod();
+                    });
             });
 
             var app = builder.Build();
@@ -125,7 +117,7 @@ namespace FizzBuzzGame.Server
             app.UseAuthorization();
             app.UseAuthentication();
 
-            app.UseCors();
+            app.UseCors("AllowSpecificOrigins");
 
 
             app.MapControllers();
