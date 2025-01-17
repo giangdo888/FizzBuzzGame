@@ -1,6 +1,46 @@
-services:
-  fizzbuzzgame.server:
-    image: ${DOCKER_REGISTRY-}fizzbuzzgameserver
-    build:
-      context: .
-      dockerfile: FizzBuzzGame.Server/Dockerfile
+version: '1'
+services:  
+    backend:    
+        build:      
+            context: ./FizzBuzzGame.Server
+        ports:      
+            - "8080:8080"    
+        environment:      
+            - ASPNETCORE_ENVIRONMENT=Production
+            - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=FizzBuzzGame;Username=postgres;Password=postgres
+        depends_on:
+            db:
+                condition: service_healthy
+        healthcheck:
+            test: ["CMD", "curl", "-f", "http://localhost:8080/healthz"]
+            interval: 30s
+            timeout: 10s
+            retries: 5
+
+    frontend:    
+        build:      
+            context: ./fizzbuzzgame.client
+        ports:      
+            - "3000:3000"    
+        environment:      
+            - NEXT_PUBLIC_API_URL=http://backend:8080
+            - NODE_ENV=production    
+        depends_on:      
+            - backend
+
+    db:
+        image: postgres
+        restart: always
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_DB: FizzBuzzGame
+        ports:
+            - "5444:5432"
+        volumes:
+            - db-data:/var/lib/postgresql/data
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U postgres || exit 1"]
+
+volumes:
+  db-data:

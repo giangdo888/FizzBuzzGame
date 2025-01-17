@@ -1,4 +1,6 @@
-const API_ADDRESS = "https://localhost:7044";
+const API_ADDRESS = process.env.NODE_ENV === "production"
+    ? "http://localhost:8080"
+    : "https://localhost:7044";
 
 export async function fetchData(
     endpoint: string,

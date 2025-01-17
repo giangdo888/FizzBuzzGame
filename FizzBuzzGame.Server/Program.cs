@@ -87,17 +87,17 @@ namespace FizzBuzzGame.Server
             //allow Cross-Origin Resource Sharing (CROS)
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("AllowSpecificOrigins",
-                    policy =>
-                    {
-                        policy.WithOrigins("https://localhost:5173")
-                              .AllowAnyHeader()
-                              .AllowAnyMethod();
-                    });
+                options.AddPolicy("AllowSpecificOrigins", policy =>
+                {
+                    policy.WithOrigins("http://localhost:5173", "http://localhost:3000")
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                });
             });
 
             var app = builder.Build();
 
+            app.UseCors("AllowSpecificOrigins");
             app.UseDefaultFiles();
             app.UseStaticFiles();
 
@@ -112,12 +112,22 @@ namespace FizzBuzzGame.Server
                 dbContext?.Database.Migrate();
             }
 
+            // Automate migration application
+            if (app.Environment.IsProduction())
+            {
+                using (var scope = app.Services.CreateScope())
+                {
+                    var dbContext = scope.ServiceProvider.GetRequiredService<FizzBuzzGameDbContext>();
+                    dbContext.Database.Migrate();
+                }
+            }
+
+
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
             app.UseAuthentication();
 
-            app.UseCors("AllowSpecificOrigins");
 
 
             app.MapControllers();
