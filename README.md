@@ -23,6 +23,7 @@ FizzBuzz is a fun, interactive full-stack application where players join a game 
 
 ### Backend
 - **ASP.NET Core**: The web framework for building the backend services, ensuring fast and scalable operations.
+- **Entity Framework Core**: A modern, object-relational mapper (ORM) for .NET.
 - **xUnit**: A unit testing framework for backend logic and functionality.
 
 ### Database
