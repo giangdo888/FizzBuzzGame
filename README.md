@@ -24,7 +24,6 @@ FizzBuzz is a fun, interactive full-stack application where players join a game 
 ### Backend
 - **ASP.NET Core**: The web framework for building the backend services, ensuring fast and scalable operations.
 - **xUnit**: A unit testing framework for backend logic and functionality.
-- **SignalR**: Real-time communication between clients and the server to handle live game updates.
 
 ### Database
 - **PostgreSQL**: A robust relational database to store game data such as player scores, game sessions, and answers.
